@@ -28,7 +28,7 @@ public class UserEntity {
     @Email(message = "O campo [email] deve conter um e-mail válido.")
     private String email;
 
-    @Length(min = 10, max = 100)
+    @Length(min = 8, max = 20)
     private String password;
 
     public UserEntity() {
