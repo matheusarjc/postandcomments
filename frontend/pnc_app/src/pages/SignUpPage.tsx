@@ -1,11 +1,11 @@
-import HeaderS from "../interface/components/HeaderS";
+import BackgroundS from "../interface/components/SignUp/Background";
 import SignUp from "../interface/components/SignUp/SignUp";
 
 const SignUpPage: React.FC = () => {
   return (
     <div className="signup-page">
-      <HeaderS />
-        <SignUp />
+      <BackgroundS />
+      <SignUp />
     </div>
   );
 };
