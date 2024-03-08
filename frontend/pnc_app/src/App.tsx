@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MainPage from "./pages/MainPage";
 import SignUpPage from "./pages/SignUpPage";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import theme from "./interface/styles/theme/theme"; // Adjust the import path as necessary
+import theme from "./interface/styles/theme/theme";
 
 function App() {
   return (

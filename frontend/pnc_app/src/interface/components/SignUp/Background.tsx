@@ -1,10 +1,11 @@
+import { Box } from "@mui/material";
 import backgroundImage from "../../../assets/background1.svg";
 
 const BackgroundS: React.FC = () => {
   return (
-    <div>
-      <img src={backgroundImage} alt="Background" className="w-screen h-screen object-cover" />
-    </div>
+    <Box sx={{ display: "flex", borderRadius: "80px", overflow: "hidden", width: "35%" }}>
+      <img src={backgroundImage} alt="Background" style={{ width: "100%" }} />;
+    </Box>
   );
 };
 
