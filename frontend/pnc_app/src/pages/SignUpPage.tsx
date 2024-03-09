@@ -1,15 +1,18 @@
-import { Box } from "@mui/material";
+import { Box, useMediaQuery, useTheme } from "@mui/material";
 import BackgroundS from "../interface/components/SignUp/Background";
 import SignUp from "../interface/components/SignUp/SignUp";
 
 const SignUpPage: React.FC = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
     <div className="signup-page">
-      <Box sx={{ paddingX: "7rem" }}>
+      <Box sx={{ paddingX: isMobile ? "0" : "7rem" }}>
         <Box
           sx={{
             display: "flex",
-            flexDirection: "row-reverse",
+            flexDirection: isMobile ? "column" : "row-reverse",
             width: "100%",
             gap: "2rem",
             justifyContent: "center",
