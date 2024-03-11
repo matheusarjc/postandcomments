@@ -11,9 +11,13 @@ const BackgroundS: React.FC = () => {
         borderRadius: isMobile ? "0" : "80px",
         overflow: "hidden",
         width: isMobile ? "100%" : "35%",
-        height: isMobile ? "10%" : "auto",
+        height: isMobile ? "100%" : "auto",
       }}>
-      <img src={backgroundImage} alt="Background" style={{ width: "100%" }} />;
+      <img
+        src={backgroundImage}
+        alt="Background"
+        style={{ width: "100%", height: isMobile ? "40vh" : "auto", objectFit: "cover" }}
+      />
     </Box>
   );
 };

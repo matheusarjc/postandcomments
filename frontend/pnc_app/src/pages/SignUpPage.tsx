@@ -14,7 +14,6 @@ const SignUpPage: React.FC = () => {
             display: "flex",
             flexDirection: isMobile ? "column" : "row-reverse",
             width: "100%",
-            gap: "2rem",
             justifyContent: "center",
             alignItems: "center",
           }}>
