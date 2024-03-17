@@ -4,6 +4,7 @@ import { register as registerService } from "../../../data/services/authService"
 import { useForm } from "react-hook-form";
 import { Box, useMediaQuery, useTheme } from "@mui/material";
 import { BoxLabelColumn } from "../../partials/BoxLabelColumn";
+import "./../../styles/global.css";
 
 type FormData = {
   name: string;
@@ -49,33 +50,53 @@ const SignUp: React.FC = () => {
         }}>
         {isMobile ? "Join the conversation" : "Create your account"}
       </span>
-      <form onSubmit={onSubmit} style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+      <form onSubmit={onSubmit} style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
         <BoxLabelColumn>
-          <label htmlFor="name" style={{ fontSize: isMobile ? "1rem" : "1.2rem " }}>
+          <label htmlFor="name" style={{ fontSize: "1rem" }}>
             Name
           </label>
-          <input id="name" {...register("name", { required: true })} />
+          <input
+            className="iptSignUp"
+            id="name"
+            {...register("name", { required: true })}
+            placeholder="Name"
+          />
           {errors.name && <p>Name is required.</p>}
         </BoxLabelColumn>
 
         <BoxLabelColumn>
           <label htmlFor="username">Username</label>
-          <input id="username" {...register("username", { required: true })} />
+          <input
+            className="iptSignUp"
+            id="username"
+            {...register("username", { required: true })}
+            placeholder="Username"
+          />
           {errors.username && <p>Username is required.</p>}
         </BoxLabelColumn>
 
         <BoxLabelColumn>
           <label htmlFor="email">Email</label>
-          <input id="email" type="email" {...register("email", { required: true })} />
+          <input
+            className="iptSignUp"
+            id="email"
+            type="email"
+            {...register("email", { required: true })}
+            placeholder="Email"
+          />
           {errors.email && <p>Email is required.</p>}
         </BoxLabelColumn>
 
         <BoxLabelColumn>
-          <label htmlFor="password">Password</label>
+          <label className="label" htmlFor="password">
+            Password
+          </label>
           <input
+            className="iptSignUp"
             id="password"
             type="password"
             {...register("password", { required: true, minLength: 8 })}
+            placeholder="Password"
           />
           {errors.password && <p>Password is required and must be at least 8 characters long.</p>}
         </BoxLabelColumn>
