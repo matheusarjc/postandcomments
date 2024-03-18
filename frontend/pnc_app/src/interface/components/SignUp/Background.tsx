@@ -10,7 +10,7 @@ const BackgroundS: React.FC = () => {
         display: "flex",
         borderRadius: isMobile ? "0" : "80px",
         overflow: "hidden",
-        width: isMobile ? "100%" : "35%",
+        width: "100%",
         height: isMobile ? "100%" : "auto",
       }}>
       <img

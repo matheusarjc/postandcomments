@@ -16,6 +16,7 @@ const SignUpPage: React.FC = () => {
             width: "100%",
             justifyContent: "center",
             alignItems: "center",
+            gap: "3rem",
           }}>
           <BackgroundS />
           <SignUp />

@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { register as registerService } from "../../../data/services/authService";
 import { useForm } from "react-hook-form";
 import { Box, useMediaQuery, useTheme } from "@mui/material";
 import { BoxLabelColumn } from "../../partials/BoxLabelColumn";
 import "./../../styles/global.css";
+import { Eye, EyeOff } from "lucide-react";
 
 type FormData = {
   name: string;
@@ -33,24 +34,34 @@ const SignUp: React.FC = () => {
     }
   });
 
+  const [passwordShown, setPasswordShown] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setPasswordShown(!passwordShown);
+  };
+
   return (
     <Box
       sx={{
         display: "flex",
         flexDirection: "column",
         paddingX: isMobile ? "1rem" : "0",
+        paddingTop: isMobile ? "0" : "3rem ",
+        overflow: "hidden",
         width: "100%",
       }}>
       <span
         style={{
           fontSize: "1.5rem",
           fontWeight: "bold",
-          padding: "1.25rem 0",
+          padding: isMobile ? "1.25rem 0" : "0",
           textAlign: "center",
         }}>
         {isMobile ? "Join the conversation" : "Create your account"}
       </span>
-      <form onSubmit={onSubmit} style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+      <form
+        onSubmit={onSubmit}
+        style={{ display: "flex", flexDirection: "column", gap: isMobile ? "1.5rem" : "0.5rem" }}>
         <BoxLabelColumn>
           <label htmlFor="name" style={{ fontSize: "1rem" }}>
             Name
@@ -61,7 +72,7 @@ const SignUp: React.FC = () => {
             {...register("name", { required: true })}
             placeholder="Name"
           />
-          {errors.name && <p>Name is required.</p>}
+          {errors.name && <p className="errorMsg">Name is required.</p>}
         </BoxLabelColumn>
 
         <BoxLabelColumn>
@@ -72,7 +83,7 @@ const SignUp: React.FC = () => {
             {...register("username", { required: true })}
             placeholder="Username"
           />
-          {errors.username && <p>Username is required.</p>}
+          {errors.username && <p className="errorMsg">Username is required.</p>}
         </BoxLabelColumn>
 
         <BoxLabelColumn>
@@ -84,24 +95,58 @@ const SignUp: React.FC = () => {
             {...register("email", { required: true })}
             placeholder="Email"
           />
-          {errors.email && <p>Email is required.</p>}
+          {errors.email && <p className="errorMsg">Email is required.</p>}
         </BoxLabelColumn>
 
         <BoxLabelColumn>
           <label className="label" htmlFor="password">
             Password
           </label>
-          <input
-            className="iptSignUp"
-            id="password"
-            type="password"
-            {...register("password", { required: true, minLength: 8 })}
-            placeholder="Password"
-          />
-          {errors.password && <p>Password is required and must be at least 8 characters long.</p>}
+          <div className="input-eye-container">
+            <input
+              className="iptSignUp iptPsw"
+              id="password"
+              type={passwordShown ? "text" : "password"}
+              {...register("password", { required: true, minLength: 8 })}
+              placeholder="Password"
+            />
+            <span onClick={togglePasswordVisibility} className="Eye">
+              {passwordShown ? <EyeOff color="#637087" /> : <Eye color="#637087" />}
+            </span>
+          </div>
+          {errors.password && (
+            <p className="errorMsg">Password is required and must be at least 8 characters long.</p>
+          )}
         </BoxLabelColumn>
 
-        <button type="submit">Sign Up</button>
+        <span
+          style={{
+            color: "#637087",
+            marginTop: isMobile ? "-0.75rem" : "1rem",
+            lineHeight: 1.2,
+            fontSize: "0.875rem",
+            textAlign: isMobile ? "start" : "center",
+          }}>
+          By signing up, you agree to our Terms of Service and Privacy Policy.
+        </span>
+
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "0.75rem",
+            paddingBottom: isMobile ? "5rem" : "2rem",
+          }}>
+          <button
+            className="accBtn"
+            style={{ backgroundColor: "#1A5CE5", color: "#FFFFFF" }}
+            type="submit">
+            Sign Up
+          </button>
+          <button className="accBtn" style={{ color: "#121217" }} type="submit">
+            Log In
+          </button>
+        </div>
       </form>
     </Box>
   );
