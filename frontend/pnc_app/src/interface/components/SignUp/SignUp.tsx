@@ -45,7 +45,7 @@ const SignUp: React.FC = () => {
       sx={{
         display: "flex",
         flexDirection: "column",
-        paddingX: isMobile ? "1rem" : "0",
+        paddingX: isMobile ? "1rem" : "0.5rem",
         paddingTop: isMobile ? "0" : "3rem ",
         overflow: "hidden",
         width: "100%",
@@ -143,8 +143,10 @@ const SignUp: React.FC = () => {
             type="submit">
             Sign Up
           </button>
-          <button className="accBtn" style={{ color: "#121217" }} type="submit">
-            Log In
+          <button className="accBtn" type="button">
+            <a style={{ textDecoration: "none", color: "#121217" }} href="">
+              Log In
+            </a>
           </button>
         </div>
       </form>
