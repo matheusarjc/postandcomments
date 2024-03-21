@@ -21,10 +21,6 @@ public class UserEntity {
     @Column(name = "name")
     private String name;
 
-    @NotBlank()
-    @Pattern(regexp = "\\S+", message = "O campo [username] não deveconter espaços.")
-    private String username;
-
     @Email(message = "O campo [email] deve conter um e-mail válido.")
     private String email;
 
@@ -37,7 +33,6 @@ public class UserEntity {
     public UserEntity(UUID id, String name, String username, String email, String password) {
         this.id = id;
         this.name = name;
-        this.username = username;
         this.email = email;
         this.password = password;
     }
@@ -48,10 +43,6 @@ public class UserEntity {
 
     public String getName() {
         return name;
-    }
-
-    public String getUsername() {
-        return username;
     }
 
     public String getEmail() {

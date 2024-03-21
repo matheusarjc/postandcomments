@@ -11,7 +11,7 @@ const BackgroundS: React.FC = () => {
         borderRadius: isMobile ? "0" : "80px",
         overflow: "hidden",
         width: "100%",
-        height: isMobile ? "100%" : "auto",
+        height: isMobile ? "100%" : "100%",
       }}>
       <img
         src={backgroundImage}

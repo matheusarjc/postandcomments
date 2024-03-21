@@ -2,8 +2,9 @@ import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
   typography: {
-    fontFamily: "Mon",
+    fontFamily: "Roboto, sans-serif",
   },
+
   // I will add other customizations here
 });
 

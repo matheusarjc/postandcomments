@@ -7,22 +7,27 @@ const SignUpPage: React.FC = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
-    <div className="signup-page">
-      <Box sx={{ paddingX: isMobile ? "0" : "7rem" }}>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: isMobile ? "column" : "row-reverse",
-            width: "100%",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: "3rem",
-          }}>
-          <BackgroundS />
-          <SignUp />
-        </Box>
+    <Box
+      sx={{
+        paddingX: isMobile ? "0" : "7rem",
+        minHeight: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: isMobile ? "column" : "row-reverse",
+          width: "100%",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: isMobile ? "0" : "3rem",
+        }}>
+        <BackgroundS />
+        <SignUp />
       </Box>
-    </div>
+    </Box>
   );
 };
 
