@@ -39,6 +39,7 @@ const SignUp: React.FC = () => {
   const [passwordShown, setPasswordShown] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [clickedIcon, setClickedIcon] = useState("");
+  //clickedIcon would be supposed to use when i want to show the name dinamycally
 
   const onSubmit = handleSubmit(async (data) => {
     try {
