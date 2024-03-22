@@ -1,9 +1,3 @@
-/* body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-} */
-
 /* INPUTS AND BUTTONS */
 .iptSignUp {
   background-color: #f0f2f5;
@@ -82,4 +76,17 @@
   box-shadow: 17px 10px 9px 0px rgba(18, 18, 23, 0.09);
   -webkit-box-shadow: 17px 10px 9px 0px rgba(18, 18, 23, 0.09);
   -moz-box-shadow: 17px 10px 9px 0px rgba(18, 18, 23, 0.09);
+}
+
+.or {
+  font-size: 0.675rem;
+  letter-spacing: 0.2rem;
+  color: #637087;
+  margin-bottom: 1rem;
+}
+
+.icon {
+  font-size: 2rem;
+  color: #81c6c4;
+  transition: transform 1s ease-in-out, box-shadow 1s ease-in-out;
 }

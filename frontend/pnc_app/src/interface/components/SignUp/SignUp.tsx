@@ -2,7 +2,19 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { register as registerService } from "../../../data/services/authService";
 import { useForm } from "react-hook-form";
-import { Box, InputLabel, TextField, useMediaQuery, useTheme } from "@mui/material";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  InputLabel,
+  TextField,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { BoxLabelColumn } from "../../partials/BoxLabelColumn";
 import "./../../styles/global.css";
 import { Eye, EyeOff, Shell } from "lucide-react";
@@ -25,6 +37,8 @@ const SignUp: React.FC = () => {
   const navigate = useNavigate();
 
   const [passwordShown, setPasswordShown] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [clickedIcon, setClickedIcon] = useState("");
 
   const onSubmit = handleSubmit(async (data) => {
     try {
@@ -49,6 +63,18 @@ const SignUp: React.FC = () => {
     return "primary";
   };
 
+  // Add a listener to get a hover on icons
+  const [hoveredIcon, setHoveredIcon] = useState("");
+
+  const handleIconClick = (iconName: string) => {
+    setClickedIcon(iconName);
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
   return (
     <Box
       sx={{
@@ -71,7 +97,7 @@ const SignUp: React.FC = () => {
           }}>
           {isMobile ? "Join the conversation" : "Create your account"}
         </span>
-        <Box sx={{ display: "flex", gap: "1rem" }}>
+        <Box sx={{ display: "flex", justifyContent: "center", gap: "2rem" }}>
           {/* FORM INPUTS  */}
           <Box
             sx={{
@@ -158,6 +184,38 @@ const SignUp: React.FC = () => {
             <div className="line"></div>
           </div>
           {/* Social SignUp */}
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}>
+            <span className="or">OR</span>
+            <Box sx={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+              <i
+                className={`devicon-linkedin-plain icon ${
+                  hoveredIcon === "linkedin" ? "colored" : ""
+                }`}
+                onMouseEnter={() => setHoveredIcon("linkedin")}
+                onMouseLeave={() => setHoveredIcon("")}
+                onClick={() => handleIconClick("LinkedIn")}></i>
+
+              <i
+                className={`devicon-twitter-original icon ${
+                  hoveredIcon === "twitter" ? "colored" : ""
+                }`}
+                onMouseEnter={() => setHoveredIcon("twitter")}
+                onMouseLeave={() => setHoveredIcon("")}
+                onClick={() => handleIconClick("Twitter")}></i>
+
+              <i
+                className={`devicon-google-plain icon ${hoveredIcon === "google" ? "colored" : ""}`}
+                onMouseEnter={() => setHoveredIcon("google")}
+                onMouseLeave={() => setHoveredIcon("")}
+                onClick={() => handleIconClick("Google")}></i>
+            </Box>
+          </Box>
         </Box>
         <span
           style={{
@@ -190,6 +248,24 @@ const SignUp: React.FC = () => {
           </button>
         </div>
       </form>
+
+      {/* Modal */}
+      <Dialog open={modalOpen} onClose={handleCloseModal}>
+        <DialogTitle> Bad news my friend...</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            To sign up with this social media platform, it's necessary to configure the <b>OAuth</b>{" "}
+            in Server Side, it means that i have to create this full app to get the API key, adjust
+            the server's CallBack URL and use some stuff with different languages and libs like
+            NodeJS (Passaport.js) or just Java (Spring Security and OAuth2) that i used to build the
+            Backend. So, my objective here is just show the potencial of a Mid-Social platform in
+            Full Stack case.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseModal}>Close</Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };
