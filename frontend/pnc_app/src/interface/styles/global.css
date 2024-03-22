@@ -49,7 +49,7 @@
 
 .Eye {
   position: absolute;
-  top: 10px;
+  top: 27px;
   right: 16px; /* Adjust as necessary for padding inside the container */
   cursor: pointer; /* Changes the cursor to indicate it's clickable */
 }

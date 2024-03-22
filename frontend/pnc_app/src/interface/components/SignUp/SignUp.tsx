@@ -9,7 +9,6 @@ import { Eye, EyeOff, Shell } from "lucide-react";
 
 type FormData = {
   name: string;
-  username: string;
   email: string;
   password: string;
   errors: any;
@@ -21,24 +20,33 @@ const SignUp: React.FC = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, touchedFields },
   } = useForm<FormData>();
   const navigate = useNavigate();
 
+  const [passwordShown, setPasswordShown] = useState(false);
+
   const onSubmit = handleSubmit(async (data) => {
     try {
-      await registerService(data); // This calls your backend to register the user
+      await registerService(data); // Calling backend to register the user
       navigate("/mainpage"); // Adjust this to your main page's route
     } catch (error) {
       console.error("Registration error:", error);
-      // Handle errors, e.g., show an error message to the user
     }
   });
 
-  const [passwordShown, setPasswordShown] = useState(false);
-
   const togglePasswordVisibility = () => {
     setPasswordShown(!passwordShown);
+  };
+
+  // It will show the color of the <TextField> if is valid
+  const getFieldColor = (
+    fieldError: boolean,
+    fieldTouched: boolean
+  ): "success" | "error" | "primary" => {
+    if (fieldTouched && !fieldError) return "success";
+    if (fieldError) return "error";
+    return "primary";
   };
 
   return (
@@ -47,7 +55,6 @@ const SignUp: React.FC = () => {
         display: "flex",
         flexDirection: "column",
         paddingX: isMobile ? "1rem" : "0.5rem",
-        //paddingTop: isMobile ? "0" : "3rem ",
         overflow: "hidden",
         width: "100%",
       }}>
@@ -66,51 +73,82 @@ const SignUp: React.FC = () => {
         </span>
         <Box sx={{ display: "flex", gap: "1rem" }}>
           {/* FORM INPUTS  */}
-          <Box sx={{ width: isMobile ? "100%" : "60%" }}>
+          <Box
+            sx={{
+              width: isMobile ? "100%" : "50%",
+              display: "flex",
+              flexDirection: "column",
+              gap: "1rem",
+            }}>
             <BoxLabelColumn>
-              <InputLabel htmlFor="name" style={{ fontSize: "1rem" }}>
+              <InputLabel htmlFor="name" style={{ fontSize: "1rem", paddingTop: "0.75rem" }}>
                 <TextField
                   id="name"
-                  label="Name"
+                  label="Full Name"
                   variant="outlined"
-                  {...register("name", { required: true })}
+                  {...register("name", {
+                    required: "Full Name is Required",
+                    pattern: {
+                      value: /^[a-zA-Z]+ [a-zA-Z]+$/,
+                      message: "Please, write your full name (first and last name).",
+                    },
+                  })}
+                  sx={{ width: "100%" }}
+                  error={!!errors.name} // ==> "!" makes the value as boolean | "!!" reverses the value again, returning to the original boolean as true or false.
+                  helperText={errors.name?.message}
+                  color={getFieldColor(!!errors.name, !!touchedFields.name)}
                 />
               </InputLabel>
-
-              {errors.name && <p className="errorMsg">Name is required.</p>}
             </BoxLabelColumn>
 
             <BoxLabelColumn>
-              <InputLabel htmlFor="email" style={{ fontSize: "1rem" }}>
+              <InputLabel htmlFor="email" style={{ fontSize: "1rem", paddingTop: "0.75rem" }}>
                 <TextField
                   id="email"
                   label="E-mail"
                   variant="outlined"
                   type="email"
-                  {...register("email", { required: true })}
+                  {...register("email", {
+                    required: "Email is required.",
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      message: "Invalid email address",
+                    },
+                  })}
+                  sx={{ width: "100%" }}
+                  error={!!errors.email}
+                  helperText={errors.email?.message}
+                  color={getFieldColor(!!errors.email, !!touchedFields.email)}
                 />
               </InputLabel>
-              {errors.email && <p className="errorMsg">Email is required.</p>}
             </BoxLabelColumn>
 
             <BoxLabelColumn>
-              <InputLabel htmlFor="password" style={{ fontSize: "1rem" }}>
+              <InputLabel htmlFor="password" style={{ fontSize: "1rem", paddingTop: "0.75rem" }}>
                 <TextField
                   id="password"
                   label="Password"
                   variant="outlined"
                   type={passwordShown ? "text" : "password"}
-                  {...register("password", { required: true })}
+                  {...register("password", {
+                    required: "Password is required",
+                    minLength: {
+                      value: 8,
+                      message: "Password must be at least 8 characters long",
+                    },
+                  })}
+                  sx={{ width: "100%" }}
+                  error={!!errors.password}
+                  helperText={errors.password?.message}
+                  color={getFieldColor(!!errors.password, !!touchedFields.password)}
                 />
+                <span
+                  onClick={togglePasswordVisibility}
+                  style={{ cursor: "pointer" }}
+                  className="Eye">
+                  {passwordShown ? <EyeOff color="#637087" /> : <Eye color="#637087" />}
+                </span>
               </InputLabel>
-              <span onClick={togglePasswordVisibility} className="Eye">
-                {passwordShown ? <EyeOff color="#637087" /> : <Eye color="#637087" />}
-              </span>
-              {errors.password && (
-                <p className="errorMsg">
-                  Password is required and must be at least 8 characters long.
-                </p>
-              )}
             </BoxLabelColumn>
           </Box>
           {/* Divisor */}
@@ -127,7 +165,7 @@ const SignUp: React.FC = () => {
             marginTop: isMobile ? "-0.75rem" : "1rem",
             lineHeight: 1.2,
             fontSize: "0.875rem",
-            textAlign: "start",
+            textAlign: "center",
           }}>
           By signing up, you agree to our Terms of Service and Privacy Policy.
         </span>
