@@ -90,22 +90,31 @@ const SignUp: React.FC = () => {
         style={{ display: "flex", flexDirection: "column", gap: isMobile ? "1.5rem" : "0.5rem" }}>
         <span
           style={{
-            fontSize: "1.5rem",
-            fontWeight: "bold",
-            padding: isMobile ? "1.25rem" : "0",
+            fontSize: "2rem",
+            fontFamily: "Poppins, sans-serif",
+            fontWeight: "bolder",
+            padding: isMobile ? "1.25rem 1.25rem 0" : "0",
+            lineHeight: isMobile ? "1" : "1.25",
             height: isMobile ? "auto" : "fit-content",
             textAlign: "center",
+            color: "#001640",
           }}>
           {isMobile ? "Join the conversation" : "Create your account"}
         </span>
-        <Box sx={{ display: "flex", justifyContent: "center", gap: "2rem" }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: isMobile ? "column" : "row",
+            justifyContent: "center",
+            gap: isMobile ? "0" : "2rem",
+          }}>
           {/* FORM INPUTS  */}
           <Box
             sx={{
               width: isMobile ? "100%" : "50%",
               display: "flex",
               flexDirection: "column",
-              gap: "1rem",
+              gap: isMobile ? "0.4rem" : "1rem",
             }}>
             <BoxLabelColumn>
               <InputLabel htmlFor="name" style={{ fontSize: "1rem", paddingTop: "0.75rem" }}>
@@ -179,10 +188,10 @@ const SignUp: React.FC = () => {
             </BoxLabelColumn>
           </Box>
           {/* Divisor */}
-          <div className="box_line">
-            <div className="line"></div>
+          <div className="box_line" style={{ display: isMobile ? "none" : "" }}>
+            <div className="line" style={{ display: isMobile ? "none" : "flex" }}></div>
             <Shell color="#81c6c4" size={15} />
-            <div className="line"></div>
+            <div className="line" style={{ display: isMobile ? "none" : "flex" }}></div>
           </div>
           {/* Social SignUp */}
           <Box
@@ -191,6 +200,7 @@ const SignUp: React.FC = () => {
               flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
+              mt: isMobile ? 2 : 0,
             }}>
             <span className="or">OR</span>
             <Box sx={{ display: "flex", gap: "1rem", alignItems: "center" }}>
@@ -242,11 +252,17 @@ const SignUp: React.FC = () => {
             type="submit">
             Sign Up
           </button>
-          <button className="accBtn" type="button">
-            <Link to="/login" style={{ textDecoration: "none", color: "#121217" }}>
-              Log In
-            </Link>
-          </button>
+          <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+            <span
+              style={{ display: "flex", gap: "0.4rem", color: "#637087", fontSize: "0.875rem" }}>
+              Already a user?
+              <Link
+                to="/login"
+                style={{ textDecoration: "none", color: "#1A5CE5", fontWeight: "bold" }}>
+                Log In
+              </Link>
+            </span>
+          </Box>
         </div>
       </form>
 

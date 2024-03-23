@@ -1,5 +1,5 @@
 import { Box, useMediaQuery, useTheme } from "@mui/material";
-import BackgroundS from "../interface/components/SignUp/Background";
+import LogIn from "../interface/components/LogIn/LogIn";
 
 const LogInPage: React.FC = () => {
   const theme = useTheme();
@@ -7,9 +7,15 @@ const LogInPage: React.FC = () => {
 
   return (
     <div>
-      <Box>
+      <Box
+        sx={{
+          minHeight: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}>
         <Box>
-          <BackgroundS />
+          <LogIn />
         </Box>
       </Box>
     </div>
