@@ -6,19 +6,17 @@ const LogInPage: React.FC = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
-    <div>
-      <Box
-        sx={{
-          minHeight: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}>
-        <Box>
-          <LogIn />
-        </Box>
+    <Box
+      sx={{
+        minHeight: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}>
+      <Box sx={{ width: isMobile ? "75%" : "auto" }}>
+        <LogIn />
       </Box>
-    </div>
+    </Box>
   );
 };
 

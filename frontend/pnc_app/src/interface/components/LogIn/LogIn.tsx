@@ -33,18 +33,25 @@ const LogIn: React.FC = () => {
     formState: { errors },
   } = useForm<FormData>();
   const navigate = useNavigate();
+
+  // STATES
   const [hoveredIcon, setHoveredIcon] = useState("");
   const [clickedIcon, setClickedIcon] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
-
   const [passwordShown, setPasswordShown] = useState(false);
+  const [loginError, setLoginError] = useState("");
+  const [loginAttempts, setLoginAttempts] = useState(0);
 
+  // HANDLERS******
   const onSubmit = handleSubmit(async (data) => {
+    // Handle to Log In an account
     try {
       await loginService(data); // Callback to backend service
       navigate("/mainpage"); // Going to the mainpage
     } catch (error) {
       console.error("Login error:", error);
+      setLoginError("Email not registered or wrong password.");
+      setLoginAttempts((prev) => prev + 1); // Increase the attempts
     }
   });
 
@@ -66,7 +73,7 @@ const LogIn: React.FC = () => {
         width: isMobile ? "100%" : "30vw",
         boxShadow: isMobile ? "none" : "-1px 8px 19px -1px rgba(0,0,0,0.75);",
         p: isMobile ? 1 : 4,
-        height: isMobile ? "100%" : "55vh",
+        height: "100%",
         borderRadius: "1rem",
       }}>
       <Box
@@ -134,7 +141,6 @@ const LogIn: React.FC = () => {
               flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
-              mt: isMobile ? 2 : 0,
             }}>
             <span className="or">OR</span>
             <Box sx={{ display: "flex", gap: "1rem", alignItems: "center" }}>
@@ -162,13 +168,27 @@ const LogIn: React.FC = () => {
             </Box>
           </Box>
 
-          <Button
-            type="submit"
-            sx={{ mt: 2, bgcolor: "#1A5CE5", color: "#FFFFFF", "&:hover": { bgcolor: "#163E7E" } }}>
-            Log In
-          </Button>
+          <Box sx={{ width: "100%", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+            {loginAttempts >= 1 && (
+              <Box
+                sx={{
+                  textAlign: "end",
+                  fontSize: "0.7rem",
+                  mt: 1.5,
+                }}>
+                <Link style={{ textDecoration: "none", color: "#637087" }} to="/forgot-password">
+                  Forgot your password?
+                </Link>
+              </Box>
+            )}
+            <Button
+              type="submit"
+              sx={{ bgcolor: "#1A5CE5", color: "#FFFFFF", "&:hover": { bgcolor: "#163E7E" } }}>
+              Log In
+            </Button>
+          </Box>
 
-          <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", mt: 2 }}>
+          <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
             <span
               style={{ display: "flex", gap: "0.4rem", color: "#637087", fontSize: "0.875rem" }}>
               New here?
