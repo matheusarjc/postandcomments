@@ -19,11 +19,13 @@ import { Eye, EyeOff } from "lucide-react";
 import "../../styles/global.css";
 import { BoxLabelColumn } from "./../../partials/BoxLabelColumn";
 
+// Typing of data
 type FormData = {
   email: string;
   password: string;
 };
 
+//  Component for displaying the login page
 const LogIn: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -36,10 +38,10 @@ const LogIn: React.FC = () => {
 
   // STATES
   const [hoveredIcon, setHoveredIcon] = useState("");
-  const [clickedIcon, setClickedIcon] = useState("");
+  const [clickedIcon, setClickedIcon] = useState(""); // clickedIcon ==> Show the name of  icon that has been clicked on (for accessibility)
   const [modalOpen, setModalOpen] = useState(false);
   const [passwordShown, setPasswordShown] = useState(false);
-  const [loginError, setLoginError] = useState("");
+  const [loginError, setLoginError] = useState(""); // loginError ==> Show  error message if any error occurs during logging in
   const [loginAttempts, setLoginAttempts] = useState(0);
 
   // HANDLERS******
@@ -55,6 +57,11 @@ const LogIn: React.FC = () => {
     }
   });
 
+  const loginService = async (data: FormData) => {
+    console.log(data); // Simulando a chamada de login
+  };
+
+  //  Function that manages the icons hover effect
   const handleIconClick = (iconName: string) => {
     setClickedIcon(iconName);
     setModalOpen(true);
@@ -64,9 +71,11 @@ const LogIn: React.FC = () => {
     setModalOpen(false);
   };
 
+  // Render password visibilty
   const togglePasswordVisibility = () => setPasswordShown(!passwordShown);
 
   return (
+    // Creating a Log In Card
     <Box
       className="Card"
       sx={{
@@ -76,6 +85,7 @@ const LogIn: React.FC = () => {
         height: "100%",
         borderRadius: "1rem",
       }}>
+      {/* Form Data Box */}
       <Box
         sx={{
           display: "flex",
@@ -100,6 +110,7 @@ const LogIn: React.FC = () => {
             }}>
             Log In
           </span>
+          {/* Inputs DATA */}
           <BoxLabelColumn>
             <InputLabel htmlFor="email" style={{ fontSize: "1rem", paddingTop: "0.75rem" }}>
               <TextField
@@ -135,6 +146,7 @@ const LogIn: React.FC = () => {
               </span>
             </InputLabel>
           </BoxLabelColumn>
+          {/* ICONS BOX */}
           <Box
             sx={{
               display: "flex",
@@ -167,8 +179,15 @@ const LogIn: React.FC = () => {
                 onClick={() => handleIconClick("Google")}></i>
             </Box>
           </Box>
-
-          <Box sx={{ width: "100%", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+          {/* Log In's Button and forget link */}
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              gap: "0.5rem",
+              m: isMobile ? 0 : 1,
+            }}>
             {loginAttempts >= 1 && (
               <Box
                 sx={{
@@ -187,7 +206,7 @@ const LogIn: React.FC = () => {
               Log In
             </Button>
           </Box>
-
+          {/* Log In's Button and forget link */}
           <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
             <span
               style={{ display: "flex", gap: "0.4rem", color: "#637087", fontSize: "0.875rem" }}>
