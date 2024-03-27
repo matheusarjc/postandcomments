@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { login as loginService } from "../../../data/services/authService"; // Certifique-se de ajustar esta importação
+import { login as loginService } from "../../../data/services/authService";
 import { useForm } from "react-hook-form";
 import {
   Box,

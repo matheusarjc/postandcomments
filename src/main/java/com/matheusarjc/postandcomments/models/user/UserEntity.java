@@ -27,30 +27,27 @@ public class UserEntity {
     @Length(min = 8, max = 20)
     private String password;
 
+    @Column(name = "photo_url")
+    private String photoUrl; // URL da foto do perfil
+
+    @Column(name = "bio", length = 1000) // Assumindo que a bio pode ter até 1000 caracteres
+    private String bio;
+
+    @Column(name = "personal_link")
+    private String personalLink; // Link pessoal
+
     public UserEntity() {
     }
 
-    public UserEntity(UUID id, String name, String username, String email, String password) {
+    public UserEntity(UUID id, String name, String email, String password, String photoUrl, String bio,
+            String personalLink) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
-    }
-
-    public UUID getUuid() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
+        this.photoUrl = photoUrl;
+        this.bio = bio;
+        this.personalLink = personalLink;
     }
 
 }

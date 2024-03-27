@@ -44,7 +44,7 @@ const SignUp: React.FC = () => {
   const onSubmit = handleSubmit(async (data) => {
     try {
       await registerService(data); // Calling backend to register the user
-      navigate("/mainpage"); // Adjust this to your main page's route
+      navigate("/create-your-profile"); // Adjust this to create a profile route
     } catch (error) {
       console.error("Registration error:", error);
     }

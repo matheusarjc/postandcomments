@@ -90,3 +90,7 @@
   color: #81c6c4;
   transition: transform 1s ease-in-out, box-shadow 1s ease-in-out;
 }
+
+.profile-picture:visited {
+  background-color: transparent;
+}
